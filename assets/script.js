@@ -5,7 +5,7 @@ var confirmNumber;
 var confirmCharacter;
 var confirmUppercase;
 var confirmLowercase;
-
+var password = [];
 // Start variables for user criteria 
 // Letter characters
 Letter = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
@@ -90,7 +90,34 @@ function generatePassword() {
   else if (confirmUppercase && confirmNumber && confirmCharacter) {
     choices = character.concat(number, alpha2)
   }
-
-
+  else if (confirmLowercase && confirmNumber && confirmCharacter) {
+    choices = character.concat(number, alpha)
+  }
+  else if (confirmUppercase && confirmLowercase && confirmCharacter) {
+    choices = character.concat(alpha, alpha2)
+  }
+  else if (confirmUppercase && confirmLowercase && confirmNumber) {
+    choices = character.concat(alpha, alpha2)
+  }
+  else if (confirmUppercase) {
+    choices = space.concat(alpha2)
+  }
+  for (var i = 0; i < enter; i++) {
+    var pickChoices = choices[Math.floor(Math.random() * choices.length)];
+    password.push(pickChoices);
+  }
+  // This joins the password array and converts it to a string
+  var ps = password.join("");
+  UserInput(ps);
+  return ps;
+}
+// This puts the password value into the textbox
+function UserInput(ps) {
+  document.getElementById("password").textContent = ps;
 
 }
+
+var copy = document.querySelector("#copy");
+copy.addEventListener("click", function () {
+  copyPassword();
+});
