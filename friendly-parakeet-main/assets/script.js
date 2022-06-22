@@ -15,9 +15,22 @@ number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 // Special characters 
 character = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "{", "]", "}", "|", ";", ":", ",", "<", ".", ">", "/", "?"];
+// End variables for user criteria
+
+// Make letters uppercase
+var toUpper = function (x) {
+  return x.toUpperCase()
+}
+
+// Variable for uppercase letters
+CapLetter = Letter.map(toUpper)
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
+get.addEventListener("click", function () {
+  ps = generatePassword()
+  document.getElementById("password").placeholder = ps
+})
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
