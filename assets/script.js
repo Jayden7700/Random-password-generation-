@@ -51,7 +51,7 @@ function generatePassword() {
     alert("You must enter a criteria into all criteria options for your password!")
   }
 
-  // One criteria selected 
+  // Check for criteria selected 
   if (confirmNumber) {
     choices = choices.concat(number)
   }
