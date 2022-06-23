@@ -6,6 +6,8 @@ var confirmCharacter;
 var confirmUppercase;
 var confirmLowercase;
 var password = [];
+var choices = [];
+var ps;
 // Start variables for user criteria 
 // Letter characters
 Letter = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
@@ -14,7 +16,7 @@ Letter = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", 
 number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 // Special characters 
-character = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "{", "]", "}", "|", ";", ":", ",", "<", ".", ">", "/", "?"];
+character = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "{", "]", "}", "|", ":", "<", ">", "/", "?"];
 // End variables for user criteria
 
 // Make letters uppercase
@@ -23,14 +25,9 @@ var toUpper = function (x) {
 }
 
 // Variable for uppercase letters
-CapLetter = Letter.map(toUpper)
+var CapLetter = Letter.map(toUpper)
 // Get references to the #generate element
 var get = document.querySelector("#generate");
-
-get.addEventListener("click", function () {
-  ps = generatePassword()
-  document.getElementById("password").placeholder = ps
-})
 
 // Generate password function
 function generatePassword() {
@@ -55,69 +52,36 @@ function generatePassword() {
   }
 
   // One criteria selected 
-  else if (confirmNumber) {
-    choices = number
+  if (confirmNumber) {
+    choices = choices.concat(number)
   }
-  else if (confirmCharacter) {
-    choices = character
+  if (confirmCharacter) {
+    choices = choices.concat(character)
   }
-  else if (confirmLowercase) {
-    choices = Letter
+  if (confirmLowercase) {
+    choices = choices.concat(Letter)
   }
-  else if (confirmUppercase) {
-    choices = space.concat(CapLetter)
-  }
-  // Two criteria selected 
-  else if (confirmLowercase && confirmUppercase) {
-    choices = alpha.concat(alpha2)
-
-  } else if (confirmNumber && confirmUppercase) {
-    choices = alpha.concat(alpha2)
-
-  } else if (confirmCharacter && confirmUppercase) {
-    choices = alpha.concat(alpha2)
-
-  } else if (confirmLowercase && confirmNumber) {
-    choices = alpha.contact(number)
-
-  } else if (confirmCharacter && confirmNumber) {
-    choices = alpha.contact(number)
-
-  } else if (confirmCharacter && confirmLowercase) {
-    choices = character.concat(alpha)
-  }
-  // Three criteria selected
-  else if (confirmUppercase && confirmNumber && confirmCharacter) {
-    choices = character.concat(number, alpha2)
-  }
-  else if (confirmLowercase && confirmNumber && confirmCharacter) {
-    choices = character.concat(number, alpha)
-  }
-  else if (confirmUppercase && confirmLowercase && confirmCharacter) {
-    choices = character.concat(alpha, alpha2)
-  }
-  else if (confirmUppercase && confirmLowercase && confirmNumber) {
-    choices = character.concat(alpha, alpha2)
-  }
-  else if (confirmUppercase) {
-    choices = space.concat(alpha2)
+  if (confirmUppercase) {
+    choices = choices.concat(CapLetter)
   }
   for (var i = 0; i < enter; i++) {
-    var pickChoices = choices[Math.floor(Math.random() * choices.length)];
+    var choice = Math.floor(Math.random() * choices.length)
+    console.log(choice);
+    var pickChoices = choices[choice];
+    console.log(pickChoices);
     password.push(pickChoices);
   }
   // This joins the password array and converts it to a string
-  var ps = password.join("");
-  UserInput(ps);
+  password.join("")
+  console.log(ps)
+  UserInput(password.join(""))
   return ps;
 }
 // This puts the password value into the textbox
 function UserInput(ps) {
-  document.getElementById("password").textContent = ps;
-
+  document.getElementById("password").textContent = ps
 }
-
-var copy = document.querySelector("#copy");
-copy.addEventListener("click", function () {
-  copyPassword();
-});
+get.addEventListener("click", function () {
+  ps = generatePassword()
+  document.getElementById("password").placeholder = ps
+})
